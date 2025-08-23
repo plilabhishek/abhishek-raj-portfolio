@@ -60,27 +60,61 @@ if (installBtn) {
     });
 }
 
-// Simplified install instructions
+// Simplified install instructions with iOS focus
 function showInstallInstructions() {
-    alert(`📱 Install this Portfolio App:
+    // Detect iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isAndroid = /Android/.test(navigator.userAgent);
+    
+    let instructions = '';
+    
+    if (isIOS) {
+        instructions = `📱 Install Portfolio App on iOS:
+
+1. Tap the Share button 📤 at the bottom of Safari
+2. Scroll down and tap "Add to Home Screen" 🏠
+3. Tap "Add" in the top right corner
+4. The app will appear on your home screen!
+
+✨ Benefits:
+• Works offline
+• Faster loading
+• Full-screen experience
+• Easy access from home screen`;
+    } else if (isAndroid) {
+        instructions = `📱 Install Portfolio App on Android:
+
+1. Tap the menu (⋮) in Chrome
+2. Select "Add to Home screen" 🏠
+3. Tap "Add" to confirm
+4. The app will appear on your home screen!
+
+✨ Benefits:
+• Works offline
+• Faster loading
+• Full-screen experience
+• Easy access from home screen`;
+    } else {
+        instructions = `💻 Install Portfolio App:
 
 🖥️ Desktop (Chrome/Edge):
 • Look for install icon ⊞ in address bar
 • Or click menu → "Install Portfolio App"
 
-📱 iPhone/iPad (Safari):
-• Tap Share button 📤
-• Select "Add to Home Screen"
+📱 Mobile Safari (iOS):
+• Tap Share 📤 → "Add to Home Screen"
 
-🤖 Android (Chrome):
+🤖 Mobile Chrome (Android):
 • Tap menu ⋮ → "Add to Home screen"
-• Or look for install banner
 
 ✨ Benefits:
 • Works offline
-• Faster loading  
+• Faster loading
 • Home screen access
-• Full-screen experience`);
+• Full-screen experience`;
+    }
+    
+    alert(instructions);
 }
 
 // Handle successful app installation
