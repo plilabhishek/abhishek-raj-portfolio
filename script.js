@@ -13,47 +13,113 @@ if ('serviceWorker' in navigator) {
 
 // PWA Install Prompt
 let deferredPrompt;
-const installButton = document.createElement('button');
-installButton.textContent = 'Install App';
-installButton.className = 'install-btn';
-installButton.style.display = 'none';
+const installBtn = document.getElementById('installBtn');
 
+// Show install button when PWA is installable
 window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    console.log('PWA install prompt available');
     e.preventDefault();
-    // Stash the event so it can be triggered later
     deferredPrompt = e;
-    // Show the install button
-    installButton.style.display = 'block';
     
-    // Add install button to hero section
-    const heroButtons = document.querySelector('.hero-buttons');
-    if (heroButtons) {
-        heroButtons.appendChild(installButton);
+    // Update button text to show it's ready
+    if (installBtn) {
+        installBtn.innerHTML = '<i class="fas fa-mobile-alt"></i> Install App';
+        installBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
     }
 });
 
-installButton.addEventListener('click', (e) => {
-    // Hide the install button
-    installButton.style.display = 'none';
-    // Show the install prompt
-    deferredPrompt.prompt();
-    // Wait for the user to respond to the prompt
-    deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted the install prompt');
+// Handle install button click
+if (installBtn) {
+    installBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        
+        if (deferredPrompt) {
+            // PWA install prompt is available
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            
+            if (outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+                installBtn.innerHTML = '<i class="fas fa-check"></i> Installed!';
+                installBtn.style.background = 'linear-gradient(135deg, #059669, #047857)';
+                setTimeout(() => {
+                    installBtn.style.display = 'none';
+                }, 2000);
+            } else {
+                console.log('User dismissed the install prompt');
+            }
+            deferredPrompt = null;
         } else {
-            console.log('User dismissed the install prompt');
+            // PWA install not available, show instructions
+            showInstallInstructions();
         }
-        deferredPrompt = null;
     });
-});
+}
+
+// Show install instructions when PWA prompt is not available
+function showInstallInstructions() {
+    const modal = document.createElement('div');
+    modal.className = 'install-modal';
+    modal.innerHTML = `
+        <div class="install-modal-content">
+            <div class="install-modal-header">
+                <h3><i class="fas fa-mobile-alt"></i> Install Portfolio App</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="install-modal-body">
+                <div class="install-option">
+                    <h4><i class="fab fa-chrome"></i> Chrome/Edge (Desktop)</h4>
+                    <p>1. Click the install icon <i class="fas fa-plus-square"></i> in the address bar</p>
+                    <p>2. Or go to Menu → "Install Portfolio App"</p>
+                </div>
+                <div class="install-option">
+                    <h4><i class="fab fa-safari"></i> Safari (iPhone/iPad)</h4>
+                    <p>1. Tap the Share button <i class="fas fa-share"></i></p>
+                    <p>2. Select "Add to Home Screen"</p>
+                </div>
+                <div class="install-option">
+                    <h4><i class="fab fa-android"></i> Chrome (Android)</h4>
+                    <p>1. Tap Menu (⋮) → "Add to Home screen"</p>
+                    <p>2. Or look for the install banner</p>
+                </div>
+                <div class="install-benefits">
+                    <h4><i class="fas fa-star"></i> Benefits:</h4>
+                    <ul>
+                        <li>✅ Works offline</li>
+                        <li>✅ Faster loading</li>
+                        <li>✅ Home screen access</li>
+                        <li>✅ Full-screen experience</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Close modal functionality
+    const closeBtn = modal.querySelector('.close-modal');
+    closeBtn.addEventListener('click', () => {
+        document.body.removeChild(modal);
+    });
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            document.body.removeChild(modal);
+        }
+    });
+}
 
 // Handle successful app installation
 window.addEventListener('appinstalled', (evt) => {
     console.log('Portfolio app was installed.');
-    // Hide install button if still visible
-    installButton.style.display = 'none';
+    if (installBtn) {
+        installBtn.innerHTML = '<i class="fas fa-check"></i> Installed!';
+        installBtn.style.background = 'linear-gradient(135deg, #059669, #047857)';
+        setTimeout(() => {
+            installBtn.style.display = 'none';
+        }, 3000);
+    }
 });
 
 // Read More/Read Less functionality for testimonials
