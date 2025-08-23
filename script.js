@@ -1,7 +1,8 @@
 // PWA Service Worker Registration
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
+        // Use relative path for GitHub Pages
+        navigator.serviceWorker.register('./sw.js')
             .then((registration) => {
                 console.log('SW registered: ', registration);
             })
@@ -21,10 +22,10 @@ window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
     
-    // Update button text to show it's ready
+    // Update button to show it's ready for install
     if (installBtn) {
         installBtn.innerHTML = '<i class="fas fa-mobile-alt"></i> Install App';
-        installBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        installBtn.classList.add('pwa-ready');
     }
 });
 
@@ -32,8 +33,10 @@ window.addEventListener('beforeinstallprompt', (e) => {
 if (installBtn) {
     installBtn.addEventListener('click', async (e) => {
         e.preventDefault();
+        console.log('Install button clicked');
         
         if (deferredPrompt) {
+            console.log('Showing PWA install prompt');
             // PWA install prompt is available
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
@@ -50,64 +53,34 @@ if (installBtn) {
             }
             deferredPrompt = null;
         } else {
+            console.log('PWA install not available, showing instructions');
             // PWA install not available, show instructions
             showInstallInstructions();
         }
     });
 }
 
-// Show install instructions when PWA prompt is not available
+// Simplified install instructions
 function showInstallInstructions() {
-    const modal = document.createElement('div');
-    modal.className = 'install-modal';
-    modal.innerHTML = `
-        <div class="install-modal-content">
-            <div class="install-modal-header">
-                <h3><i class="fas fa-mobile-alt"></i> Install Portfolio App</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="install-modal-body">
-                <div class="install-option">
-                    <h4><i class="fab fa-chrome"></i> Chrome/Edge (Desktop)</h4>
-                    <p>1. Click the install icon <i class="fas fa-plus-square"></i> in the address bar</p>
-                    <p>2. Or go to Menu → "Install Portfolio App"</p>
-                </div>
-                <div class="install-option">
-                    <h4><i class="fab fa-safari"></i> Safari (iPhone/iPad)</h4>
-                    <p>1. Tap the Share button <i class="fas fa-share"></i></p>
-                    <p>2. Select "Add to Home Screen"</p>
-                </div>
-                <div class="install-option">
-                    <h4><i class="fab fa-android"></i> Chrome (Android)</h4>
-                    <p>1. Tap Menu (⋮) → "Add to Home screen"</p>
-                    <p>2. Or look for the install banner</p>
-                </div>
-                <div class="install-benefits">
-                    <h4><i class="fas fa-star"></i> Benefits:</h4>
-                    <ul>
-                        <li>✅ Works offline</li>
-                        <li>✅ Faster loading</li>
-                        <li>✅ Home screen access</li>
-                        <li>✅ Full-screen experience</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    // Close modal functionality
-    const closeBtn = modal.querySelector('.close-modal');
-    closeBtn.addEventListener('click', () => {
-        document.body.removeChild(modal);
-    });
-    
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            document.body.removeChild(modal);
-        }
-    });
+    alert(`📱 Install this Portfolio App:
+
+🖥️ Desktop (Chrome/Edge):
+• Look for install icon ⊞ in address bar
+• Or click menu → "Install Portfolio App"
+
+📱 iPhone/iPad (Safari):
+• Tap Share button 📤
+• Select "Add to Home Screen"
+
+🤖 Android (Chrome):
+• Tap menu ⋮ → "Add to Home screen"
+• Or look for install banner
+
+✨ Benefits:
+• Works offline
+• Faster loading  
+• Home screen access
+• Full-screen experience`);
 }
 
 // Handle successful app installation
