@@ -1816,8 +1816,39 @@ section {
     box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
 }
 
+/* PWA Install Button */
+.install-btn {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    margin-left: 1rem;
+}
+
+.install-btn:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.install-btn:active {
+    transform: translateY(0);
+}
+
 /* Mobile Responsive Updates */
 @media (max-width: 768px) {
+    .install-btn {
+        margin-left: 0;
+        margin-top: 1rem;
+        width: 100%;
+    }
+    
     .timeline::after {
         left: 31px;
     }

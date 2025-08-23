@@ -1,3 +1,61 @@
+// PWA Service Worker Registration
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+                console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+                console.log('SW registration failed: ', registrationError);
+            });
+    });
+}
+
+// PWA Install Prompt
+let deferredPrompt;
+const installButton = document.createElement('button');
+installButton.textContent = 'Install App';
+installButton.className = 'install-btn';
+installButton.style.display = 'none';
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later
+    deferredPrompt = e;
+    // Show the install button
+    installButton.style.display = 'block';
+    
+    // Add install button to hero section
+    const heroButtons = document.querySelector('.hero-buttons');
+    if (heroButtons) {
+        heroButtons.appendChild(installButton);
+    }
+});
+
+installButton.addEventListener('click', (e) => {
+    // Hide the install button
+    installButton.style.display = 'none';
+    // Show the install prompt
+    deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the install prompt');
+        } else {
+            console.log('User dismissed the install prompt');
+        }
+        deferredPrompt = null;
+    });
+});
+
+// Handle successful app installation
+window.addEventListener('appinstalled', (evt) => {
+    console.log('Portfolio app was installed.');
+    // Hide install button if still visible
+    installButton.style.display = 'none';
+});
+
 // Read More/Read Less functionality for testimonials
 document.addEventListener('DOMContentLoaded', function() {
     const readMoreBtns = document.querySelectorAll('.read-more-btn');
