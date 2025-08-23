@@ -2,23 +2,23 @@
   "name": "Abhishek Raj - Senior Software Developer Portfolio",
   "short_name": "Abhishek Raj",
   "description": "Professional portfolio of Abhishek Raj, Senior Software Developer with 5.5+ years of experience in MERN stack, AWS, and modern web technologies.",
-  "start_url": "./",
+  "start_url": "/abhishek-raj-portfolio/",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#2563eb",
   "orientation": "portrait-primary",
-  "scope": "./",
+  "scope": "/abhishek-raj-portfolio/",
   "lang": "en",
   "categories": ["portfolio", "developer", "professional"],
   "icons": [
     {
-      "src": "./icons/icon-192x192.png",
+      "src": "/abhishek-raj-portfolio/icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "./icons/icon-512x512.png",
+      "src": "/abhishek-raj-portfolio/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable any"
