@@ -47,7 +47,9 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -89,38 +91,48 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
+        <canvas id="hero-canvas"></canvas>
         <div class="hero-container">
             <div class="hero-content">
+                <div class="hero-tag-line"><span class="hero-tag-dot"></span> Available for opportunities</div>
                 <h1 class="hero-title">
-                    Hi, I'm <span class="highlight">Abhishek Raj</span>
+                    Hi, I'm <span class="highlight" data-text="Abhishek Raj">Abhishek Raj</span>
                 </h1>
-                <h2 class="hero-subtitle">Senior Software Developer</h2>
+                <h2 class="hero-subtitle"><span id="typing-text"></span><span class="cursor-blink">|</span></h2>
                 <p class="hero-description">
-                    Passionate full-stack developer with 5.5+ years of experience building scalable web applications. 
-                    Specialized in React.js, Node.js, AWS, and modern development practices.
+                    5.5+ years building enterprise-grade systems — microservices, real-time platforms, AI integrations &amp; cloud-native deployments at scale.
                 </p>
+                <!-- Live terminal -->
+                <div class="hero-terminal">
+                    <div class="terminal-bar">
+                        <span class="t-dot red"></span><span class="t-dot yellow"></span><span class="t-dot green"></span>
+                        <span class="t-title">abhishek@portfolio:~</span>
+                    </div>
+                    <div class="terminal-body" id="terminal-body"></div>
+                </div>
                 <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">Hire Me</a>
-                    <a href="#projects" class="btn btn-secondary">View Projects</a>
-                    <button id="installBtn" class="btn btn-install">
-                        <i class="fas fa-download"></i>
-                        Install App
-                    </button>
+                    <a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Hire Me</a>
+                    <a href="#projects" class="btn btn-secondary"><i class="fas fa-code-branch"></i> View Projects</a>
                 </div>
                 <div class="hero-social">
-                    <a href="https://linkedin.com/in/abhishekraj" target="_blank" class="social-link">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://github.com/abhishekraj" target="_blank" class="social-link">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="mailto:rajabhishek547@gmail.com" class="social-link">
-                        <i class="fas fa-envelope"></i>
-                    </a>
+                    <a href="https://linkedin.com/in/abhishekraj" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/abhishekraj" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="mailto:rajabhishek547@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
             <div class="hero-image">
                 <div class="profile-card">
+                    <!-- Orbit rings -->
+                    <div class="orbit-ring orbit-1">
+                        <div class="orbit-icon" style="--angle:0deg"><i class="fab fa-react"></i></div>
+                        <div class="orbit-icon" style="--angle:90deg"><i class="fab fa-node-js"></i></div>
+                        <div class="orbit-icon" style="--angle:180deg"><i class="fab fa-aws"></i></div>
+                        <div class="orbit-icon" style="--angle:270deg"><i class="fab fa-docker"></i></div>
+                    </div>
+                    <div class="orbit-ring orbit-2">
+                        <div class="orbit-icon" style="--angle:45deg"><i class="fas fa-database"></i></div>
+                        <div class="orbit-icon" style="--angle:225deg"><i class="fas fa-brain"></i></div>
+                    </div>
                     <div class="profile-img">
                         <img src="IMG_4797.jpg" alt="Abhishek Raj - Senior Software Developer" />
                     </div>
@@ -161,7 +173,7 @@
                         <p>Projects Completed</p>
                     </div>
                     <div class="stat-item">
-                        <h3>3</h3>
+                        <h3>5+</h3>
                         <p>Awards Received</p>
                     </div>
                     <div class="stat-item">
@@ -177,195 +189,88 @@
     <section id="skills" class="skills">
         <div class="container">
             <h2 class="section-title">Skills & Tech Stack</h2>
+
+            <!-- Top proficiency bars -->
+            <div class="skill-bars-grid">
+                <div class="skill-bar-item" data-pct="95"><div class="sb-meta"><i class="fab fa-react"></i><span>React.js</span><em>95%</em></div><div class="sb-track"><div class="sb-fill" style="--pct:95%;--clr:#61dafb"></div></div></div>
+                <div class="skill-bar-item" data-pct="92"><div class="sb-meta"><i class="fab fa-node-js"></i><span>Node.js / NestJS</span><em>92%</em></div><div class="sb-track"><div class="sb-fill" style="--pct:92%;--clr:#68a063"></div></div></div>
+                <div class="skill-bar-item" data-pct="88"><div class="sb-meta"><i class="fab fa-js"></i><span>JavaScript / TypeScript</span><em>88%</em></div><div class="sb-track"><div class="sb-fill" style="--pct:88%;--clr:#f7df1e"></div></div></div>
+                <div class="skill-bar-item" data-pct="85"><div class="sb-meta"><i class="fab fa-aws"></i><span>AWS Cloud</span><em>85%</em></div><div class="sb-track"><div class="sb-fill" style="--pct:85%;--clr:#ff9900"></div></div></div>
+                <div class="skill-bar-item" data-pct="82"><div class="sb-meta"><i class="fas fa-database"></i><span>MongoDB / PostgreSQL</span><em>82%</em></div><div class="sb-track"><div class="sb-fill" style="--pct:82%;--clr:#4db33d"></div></div></div>
+                <div class="skill-bar-item" data-pct="80"><div class="sb-meta"><i class="fab fa-docker"></i><span>Docker / CI-CD</span><em>80%</em></div><div class="sb-track"><div class="sb-fill" style="--pct:80%;--clr:#2496ed"></div></div></div>
+                <div class="skill-bar-item" data-pct="78"><div class="sb-meta"><i class="fas fa-plug"></i><span>WebSocket / Redis</span><em>78%</em></div><div class="sb-track"><div class="sb-fill" style="--pct:78%;--clr:#a78bfa"></div></div></div>
+                <div class="skill-bar-item" data-pct="75"><div class="sb-meta"><i class="fas fa-brain"></i><span>GenAI / Amazon Q</span><em>75%</em></div><div class="sb-track"><div class="sb-fill" style="--pct:75%;--clr:#ec4899"></div></div></div>
+            </div>
+
+            <!-- Category pills -->
             <div class="skills-grid">
                 <div class="skill-category">
-                    <h3>Frontend</h3>
+                    <h3><i class="fas fa-desktop"></i> Frontend</h3>
                     <div class="skill-items">
-                        <div class="skill-item">
-                            <i class="fab fa-react"></i>
-                            <span>React.js</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-code"></i>
-                            <span>Next.js</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-js"></i>
-                            <span>JavaScript</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-html5"></i>
-                            <span>HTML5</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-css3"></i>
-                            <span>CSS3</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-layer-group"></i>
-                            <span>Redux Toolkit</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-bootstrap"></i>
-                            <span>Bootstrap</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-palette"></i>
-                            <span>Material UI</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-wind"></i>
-                            <span>Tailwind CSS</span>
-                        </div>
+                        <div class="skill-item"><i class="fab fa-react"></i><span>React.js</span></div>
+                        <div class="skill-item"><i class="fas fa-code"></i><span>Next.js</span></div>
+                        <div class="skill-item"><i class="fab fa-js"></i><span>JavaScript</span></div>
+                        <div class="skill-item"><i class="fab fa-html5"></i><span>HTML5</span></div>
+                        <div class="skill-item"><i class="fab fa-css3"></i><span>CSS3</span></div>
+                        <div class="skill-item"><i class="fas fa-layer-group"></i><span>Redux Toolkit</span></div>
+                        <div class="skill-item"><i class="fab fa-bootstrap"></i><span>Bootstrap</span></div>
+                        <div class="skill-item"><i class="fas fa-palette"></i><span>Material UI</span></div>
+                        <div class="skill-item"><i class="fas fa-wind"></i><span>Tailwind CSS</span></div>
                     </div>
                 </div>
-                
                 <div class="skill-category">
-                    <h3>Backend</h3>
+                    <h3><i class="fas fa-server"></i> Backend</h3>
                     <div class="skill-items">
-                        <div class="skill-item">
-                            <i class="fab fa-node-js"></i>
-                            <span>Node.js</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-server"></i>
-                            <span>Express.js</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-server"></i>
-                            <span>NestJS</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-database"></i>
-                            <span>RESTful APIs</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-plug"></i>
-                            <span>WebSocket APIs</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-java"></i>
-                            <span>Java</span>
-                        </div>
+                        <div class="skill-item"><i class="fab fa-node-js"></i><span>Node.js</span></div>
+                        <div class="skill-item"><i class="fas fa-server"></i><span>Express.js</span></div>
+                        <div class="skill-item"><i class="fas fa-server"></i><span>NestJS</span></div>
+                        <div class="skill-item"><i class="fas fa-database"></i><span>RESTful APIs</span></div>
+                        <div class="skill-item"><i class="fas fa-plug"></i><span>WebSocket APIs</span></div>
+                        <div class="skill-item"><i class="fas fa-memory"></i><span>Redis / BullMQ</span></div>
                     </div>
                 </div>
-                
                 <div class="skill-category">
-                    <h3>Databases</h3>
+                    <h3><i class="fas fa-database"></i> Databases</h3>
                     <div class="skill-items">
-                        <div class="skill-item">
-                            <i class="fas fa-database"></i>
-                            <span>MongoDB</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-database"></i>
-                            <span>PostgreSQL</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-database"></i>
-                            <span>NoSQL</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-database"></i>
-                            <span>SQL</span>
-                        </div>
+                        <div class="skill-item"><i class="fas fa-database"></i><span>MongoDB</span></div>
+                        <div class="skill-item"><i class="fas fa-database"></i><span>PostgreSQL</span></div>
+                        <div class="skill-item"><i class="fas fa-database"></i><span>NoSQL</span></div>
+                        <div class="skill-item"><i class="fas fa-database"></i><span>SQL</span></div>
                     </div>
                 </div>
-                
                 <div class="skill-category">
-                    <h3>Cloud & DevOps</h3>
+                    <h3><i class="fab fa-aws"></i> Cloud & DevOps</h3>
                     <div class="skill-items">
-                        <div class="skill-item">
-                            <i class="fab fa-aws"></i>
-                            <span>AWS (EC2, S3, CloudFront)</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-docker"></i>
-                            <span>Docker</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-infinity"></i>
-                            <span>CI/CD Pipelines</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-cogs"></i>
-                            <span>Jenkins</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-network-wired"></i>
-                            <span>VPC</span>
-                        </div>
+                        <div class="skill-item"><i class="fab fa-aws"></i><span>AWS (EC2, S3, CloudFront)</span></div>
+                        <div class="skill-item"><i class="fab fa-docker"></i><span>Docker</span></div>
+                        <div class="skill-item"><i class="fas fa-infinity"></i><span>CI/CD Pipelines</span></div>
+                        <div class="skill-item"><i class="fas fa-cogs"></i><span>Jenkins</span></div>
+                        <div class="skill-item"><i class="fas fa-network-wired"></i><span>VPC</span></div>
                     </div>
                 </div>
-                
                 <div class="skill-category">
-                    <h3>Tools & Technologies</h3>
+                    <h3><i class="fas fa-robot"></i> AI & Tools</h3>
                     <div class="skill-items">
-                        <div class="skill-item">
-                            <i class="fab fa-git-alt"></i>
-                            <span>Git</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-github"></i>
-                            <span>GitHub</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-tasks"></i>
-                            <span>JIRA</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-fire"></i>
-                            <span>Firebase</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-map"></i>
-                            <span>Google Maps API</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-ticket-alt"></i>
-                            <span>Ticketing Systems</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-search"></i>
-                            <span>SEO</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-robot"></i>
-                            <span>Amazon Q CLI</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-brain"></i>
-                            <span>Gen AI</span>
-                        </div>
+                        <div class="skill-item"><i class="fas fa-brain"></i><span>Gen AI</span></div>
+                        <div class="skill-item"><i class="fas fa-robot"></i><span>Amazon Q CLI</span></div>
+                        <div class="skill-item"><i class="fas fa-fire"></i><span>Firebase</span></div>
+                        <div class="skill-item"><i class="fab fa-git-alt"></i><span>Git / GitHub</span></div>
+                        <div class="skill-item"><i class="fas fa-tasks"></i><span>JIRA</span></div>
                     </div>
                 </div>
-                
                 <div class="skill-category">
-                    <h3>Methodologies</h3>
+                    <h3><i class="fas fa-users"></i> Leadership</h3>
                     <div class="skill-items">
-                        <div class="skill-item">
-                            <i class="fas fa-sync-alt"></i>
-                            <span>Agile</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-code"></i>
-                            <span>Code Review</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-users"></i>
-                            <span>Team Leadership</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-chalkboard-teacher"></i>
-                            <span>Mentoring</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-user-tie"></i>
-                            <span>CRM Systems</span>
-                        </div>
+                        <div class="skill-item"><i class="fas fa-sync-alt"></i><span>Agile / Scrum</span></div>
+                        <div class="skill-item"><i class="fas fa-code"></i><span>Code Review</span></div>
+                        <div class="skill-item"><i class="fas fa-users"></i><span>Team Leadership</span></div>
+                        <div class="skill-item"><i class="fas fa-chalkboard-teacher"></i><span>Mentoring</span></div>
+                        <div class="skill-item"><i class="fas fa-sitemap"></i><span>System Design</span></div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
         </div>
     </section>
 
@@ -373,107 +278,159 @@
     <section id="experience" class="experience">
         <div class="container">
             <h2 class="section-title">Professional Experience</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3>Senior Software Developer (Deputy Manager)</h3>
-                        <h4>Pramerica Life Insurance</h4>
-                        <span class="timeline-date">Mar 2024 - Present</span>
-                        <ul>
-                            <li>Led integration of GenAI-powered chatbots into customer service workflows, improving response efficiency by 30%</li>
-                            <li>Spearheaded auto-debit mandate integration with multiple partner banks, enhancing payment processing by 25%</li>
-                            <li>Configured and managed cloud-based services using AWS tools, improving system uptime to 99.9%</li>
-                            <li>Implemented robust CI/CD pipeline with Jenkins to automate software delivery</li>
-                            <li>Maintained high standards of code quality and best practices, leading to 40% reduction in production bugs</li>
+            <div class="exp-timeline">
+
+                <div class="exp-item" data-index="0">
+                    <div class="exp-connector">
+                        <div class="exp-dot"><i class="fas fa-code"></i></div>
+                        <div class="exp-line"></div>
+                    </div>
+                    <div class="exp-card">
+                        <div class="exp-header">
+                            <div>
+                                <span class="exp-badge current">Current</span>
+                                <h3>Senior Software Developer <span class="exp-level">Deputy Manager</span></h3>
+                                <h4><i class="fas fa-building"></i> Pramerica Life Insurance</h4>
+                            </div>
+                            <span class="exp-date"><i class="fas fa-calendar-alt"></i> Mar 2024 – Present</span>
+                        </div>
+                        <ul class="exp-list">
+                            <li><span class="impact">+30%</span> response efficiency via GenAI-powered chatbot integration</li>
+                            <li><span class="impact">+25%</span> payment processing via auto-debit mandate with partner banks</li>
+                            <li><span class="impact">99.9%</span> system uptime through AWS cloud management</li>
+                            <li><span class="impact">-40%</span> production bugs via CI/CD pipeline & code quality standards</li>
                         </ul>
+                        <div class="exp-tags"><span>GenAI</span><span>AWS</span><span>Jenkins</span><span>React.js</span><span>Node.js</span></div>
                     </div>
                 </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3>Software Developer II (Assistant Manager)</h3>
-                        <h4>Pramerica Life Insurance</h4>
-                        <span class="timeline-date">Sep 2022 - Mar 2024</span>
-                        <ul>
-                            <li>Developed comprehensive MERN stack full-stack project from inception to deployment</li>
-                            <li>Established and enforced Git-based workflow for efficient version control, improving team collaboration by 35%</li>
-                            <li>Configured and managed cloud-based services using AWS tools, achieving 99% uptime</li>
-                            <li>Implemented robust CI/CD pipeline with Jenkins, reducing deployment time by 50%</li>
-                            <li>Maintained high standards of code quality through rigorous code reviews and best practices</li>
+
+                <div class="exp-item" data-index="1">
+                    <div class="exp-connector">
+                        <div class="exp-dot"><i class="fas fa-layer-group"></i></div>
+                        <div class="exp-line"></div>
+                    </div>
+                    <div class="exp-card">
+                        <div class="exp-header">
+                            <div>
+                                <h3>Software Developer II <span class="exp-level">Assistant Manager</span></h3>
+                                <h4><i class="fas fa-building"></i> Pramerica Life Insurance</h4>
+                            </div>
+                            <span class="exp-date"><i class="fas fa-calendar-alt"></i> Sep 2022 – Mar 2024</span>
+                        </div>
+                        <ul class="exp-list">
+                            <li>Built full MERN stack project from inception to production deployment</li>
+                            <li><span class="impact">+35%</span> team collaboration via Git-based workflow enforcement</li>
+                            <li><span class="impact">-50%</span> deployment time with Jenkins CI/CD pipeline</li>
+                            <li><span class="impact">99%</span> uptime via AWS cloud configuration & management</li>
                         </ul>
+                        <div class="exp-tags"><span>MERN</span><span>AWS</span><span>Jenkins</span><span>Git</span></div>
                     </div>
                 </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3>Senior Software Developer</h3>
-                        <h4>Redcliffe Labs</h4>
-                        <span class="timeline-date">Mar 2022 - Aug 2022</span>
-                        <ul>
-                            <li>Led requirements gathering and review sessions with key stakeholders, ensuring 100% alignment</li>
-                            <li>Designed and developed an Inventory Management System within the CRM, reducing manual work by 70%</li>
-                            <li>Conducted rigorous code reviews and implemented optimization opportunities, improving performance by 25%</li>
-                            <li>Designed and developed an automated ticketing system within the CRM, reducing response time by 60%</li>
+
+                <div class="exp-item" data-index="2">
+                    <div class="exp-connector">
+                        <div class="exp-dot"><i class="fas fa-flask"></i></div>
+                        <div class="exp-line"></div>
+                    </div>
+                    <div class="exp-card">
+                        <div class="exp-header">
+                            <div>
+                                <h3>Senior Software Developer</h3>
+                                <h4><i class="fas fa-building"></i> Redcliffe Labs</h4>
+                            </div>
+                            <span class="exp-date"><i class="fas fa-calendar-alt"></i> Mar 2022 – Aug 2022</span>
+                        </div>
+                        <ul class="exp-list">
+                            <li><span class="impact">-70%</span> manual work via Inventory Management System in CRM</li>
+                            <li><span class="impact">-60%</span> response time via automated ticketing system</li>
+                            <li><span class="impact">+25%</span> performance via code reviews & optimization</li>
                         </ul>
+                        <div class="exp-tags"><span>React.js</span><span>CRM</span><span>MongoDB</span><span>WebSocket</span></div>
                     </div>
                 </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3>Software Developer I</h3>
-                        <h4>Redcliffe Labs</h4>
-                        <span class="timeline-date">Sep 2021 - Mar 2022</span>
-                        <ul>
-                            <li>Developed and configured over 40 user groups within the CRM to manage Pathology, Radiology, and Corporate Client Business</li>
-                            <li>Integrated MapMyIndia API to create advanced zone and address mapping solutions, improving customer tracking by 35%</li>
-                            <li>Implemented Firebase for real-time notifications, leading to 25% increase in customer engagement</li>
-                            <li>Enforced stringent security measures and achieved 100% compliance during audits</li>
+
+                <div class="exp-item" data-index="3">
+                    <div class="exp-connector">
+                        <div class="exp-dot"><i class="fas fa-map-marked-alt"></i></div>
+                        <div class="exp-line"></div>
+                    </div>
+                    <div class="exp-card">
+                        <div class="exp-header">
+                            <div>
+                                <h3>Software Developer I</h3>
+                                <h4><i class="fas fa-building"></i> Redcliffe Labs</h4>
+                            </div>
+                            <span class="exp-date"><i class="fas fa-calendar-alt"></i> Sep 2021 – Mar 2022</span>
+                        </div>
+                        <ul class="exp-list">
+                            <li>Configured 40+ user groups in CRM for Pathology, Radiology & Corporate clients</li>
+                            <li><span class="impact">+35%</span> customer tracking via MapMyIndia API zone mapping</li>
+                            <li><span class="impact">+25%</span> engagement via Firebase real-time notifications</li>
                         </ul>
+                        <div class="exp-tags"><span>React.js</span><span>Firebase</span><span>Maps API</span><span>CRM</span></div>
                     </div>
                 </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3>Frontend Developer</h3>
-                        <h4>Redcliffe Labs</h4>
-                        <span class="timeline-date">Jun 2021 - Sep 2021</span>
-                        <ul>
-                            <li>Customized and maintained CRM systems to meet specific call center operational needs, improving efficiency by 30%</li>
-                            <li>Collaborated effectively with CRM administrators, business analysts, and QA teams</li>
-                            <li>Developed custom reports and interactive dashboards to provide real-time insights</li>
+
+                <div class="exp-item" data-index="4">
+                    <div class="exp-connector">
+                        <div class="exp-dot"><i class="fas fa-desktop"></i></div>
+                        <div class="exp-line"></div>
+                    </div>
+                    <div class="exp-card">
+                        <div class="exp-header">
+                            <div>
+                                <h3>Frontend Developer</h3>
+                                <h4><i class="fas fa-building"></i> Redcliffe Labs</h4>
+                            </div>
+                            <span class="exp-date"><i class="fas fa-calendar-alt"></i> Jun 2021 – Sep 2021</span>
+                        </div>
+                        <ul class="exp-list">
+                            <li><span class="impact">+30%</span> call center efficiency via CRM customization</li>
+                            <li>Built custom reports & interactive dashboards for real-time insights</li>
                         </ul>
+                        <div class="exp-tags"><span>React.js</span><span>CRM</span><span>Dashboards</span></div>
                     </div>
                 </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3>Trainee Software Developer</h3>
-                        <h4>MilestoneOS</h4>
-                        <span class="timeline-date">Jan 2021 - Jun 2021</span>
-                        <ul>
-                            <li>Developed a responsive Product Management web application using HTML, CSS, JavaScript, and React</li>
-                            <li>Implemented features for task management (add, edit, delete) with modern UI/UX principles</li>
+
+                <div class="exp-item" data-index="5">
+                    <div class="exp-connector">
+                        <div class="exp-dot"><i class="fas fa-seedling"></i></div>
+                        <div class="exp-line"></div>
+                    </div>
+                    <div class="exp-card">
+                        <div class="exp-header">
+                            <div>
+                                <h3>Trainee Software Developer</h3>
+                                <h4><i class="fas fa-building"></i> MilestoneOS</h4>
+                            </div>
+                            <span class="exp-date"><i class="fas fa-calendar-alt"></i> Jan 2021 – Jun 2021</span>
+                        </div>
+                        <ul class="exp-list">
+                            <li>Built responsive Product Management app with React.js & modern UI/UX</li>
                         </ul>
+                        <div class="exp-tags"><span>React.js</span><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
                     </div>
                 </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3>Trainee Software Engineer</h3>
-                        <h4>Sigmify</h4>
-                        <span class="timeline-date">Jul 2020 - Nov 2020</span>
-                        <ul>
-                            <li>Contributed to the development of an admin panel for a VYAVASHAAY application using React.js, CSS, and Bootstrap</li>
+
+                <div class="exp-item" data-index="6">
+                    <div class="exp-connector">
+                        <div class="exp-dot"><i class="fas fa-rocket"></i></div>
+                    </div>
+                    <div class="exp-card">
+                        <div class="exp-header">
+                            <div>
+                                <h3>Trainee Software Engineer</h3>
+                                <h4><i class="fas fa-building"></i> Sigmify</h4>
+                            </div>
+                            <span class="exp-date"><i class="fas fa-calendar-alt"></i> Jul 2020 – Nov 2020</span>
+                        </div>
+                        <ul class="exp-list">
+                            <li>Developed admin panel for VYAVASHAAY app using React.js & Bootstrap</li>
                         </ul>
+                        <div class="exp-tags"><span>React.js</span><span>Bootstrap</span><span>CSS</span></div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -528,149 +485,164 @@
     <!-- Projects Section -->
     <section id="projects" class="projects">
         <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>GenAI-Powered Chatbot Integration</h3>
-                        <p><strong>Company:</strong> Pramerica Life Insurance</p>
-                        <p><strong>Challenge:</strong> Customer service workflows needed automation and intelligent response capabilities to handle increasing query volumes efficiently.</p>
-                        <p><strong>Solution:</strong> Led integration of GenAI-powered chatbots into existing customer service workflows, implementing natural language processing and automated response systems.</p>
-                        <p><strong>Impact:</strong> Improved response efficiency by 30% and enhanced customer satisfaction through 24/7 intelligent support.</p>
-                        <div class="project-tech">
-                            <span>GenAI</span>
-                            <span>Node.js</span>
-                            <span>React.js</span>
-                            <span>AWS</span>
+            <h2 class="section-title">Core Projects</h2>
+
+            <!-- Flagship -->
+            <div class="proj-flagship">
+                <div class="proj-flagship-badge"><i class="fas fa-star"></i> Flagship Project</div>
+                <div class="proj-flagship-inner">
+                    <div class="proj-flagship-left">
+                        <div class="proj-icon-wrap flagship-icon"><i class="fas fa-cubes"></i></div>
+                        <h3>Super App Platform</h3>
+                        <p class="proj-tagline">Microservices-Based Enterprise Super Application</p>
+                        <p class="proj-inspired">Inspired by Paytm &amp; WeChat · Built at Pramerica Life Insurance</p>
+
+                        <div class="proj-metrics">
+                            <div class="proj-metric"><span>5+</span><small>Modules</small></div>
+                            <div class="proj-metric"><span>RBAC</span><small>Access Control</small></div>
+                            <div class="proj-metric"><span>AI</span><small>Enabled</small></div>
+                            <div class="proj-metric"><span>RT</span><small>Real-time</small></div>
+                            <div class="proj-metric"><span>µSvc</span><small>Architecture</small></div>
+                        </div>
+
+                        <div class="sa-feature-list">
+                            <div class="sa-feature"><i class="fas fa-lock"></i><div><strong>Centralized RBAC</strong><span>Role-based access control across all modules — single auth layer for the entire platform</span></div></div>
+                            <div class="sa-feature"><i class="fas fa-comments"></i><div><strong>Real-time Chat & Collaboration</strong><span>WebSocket-powered messaging, presence indicators, and team collaboration rooms</span></div></div>
+                            <div class="sa-feature"><i class="fas fa-robot"></i><div><strong>AI-Enabled Modules</strong><span>Smart recommendations, conversational assistant, and workflow automation via GenAI</span></div></div>
+                            <div class="sa-feature"><i class="fas fa-plug"></i><div><strong>Plug-and-Play Microservices</strong><span>Each module independently deployable — Ticketing, Insurance, Notifications, Analytics</span></div></div>
+                            <div class="sa-feature"><i class="fas fa-bell"></i><div><strong>Unified Notification Engine</strong><span>FCM push + Email + SMS with Redis/BullMQ queue, retry logic &amp; admin dashboard</span></div></div>
+                            <div class="sa-feature"><i class="fas fa-chart-line"></i><div><strong>Analytics Dashboard</strong><span>Real-time KPIs, team performance metrics, and data-driven decision support</span></div></div>
+                        </div>
+
+                        <div class="proj-tags-row" style="margin-top:1.2rem">
+                            <span>React.js</span><span>NestJS</span><span>Node.js</span><span>WebSocket</span><span>Redis</span><span>BullMQ</span><span>MongoDB</span><span>AWS</span><span>Docker</span><span>GenAI</span>
                         </div>
                     </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-credit-card"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Auto-Debit Mandate Integration</h3>
-                        <p><strong>Company:</strong> Pramerica Life Insurance</p>
-                        <p><strong>Challenge:</strong> Manual payment processing was causing delays and required integration with multiple partner banks for seamless transactions.</p>
-                        <p><strong>Solution:</strong> Spearheaded auto-debit mandate integration with multiple partner banks, implementing secure payment gateways and automated processing systems.</p>
-                        <p><strong>Impact:</strong> Enhanced payment processing efficiency by 25% and reduced manual intervention in financial transactions.</p>
-                        <div class="project-tech">
-                            <span>Payment Gateway</span>
-                            <span>Banking APIs</span>
-                            <span>Node.js</span>
-                            <span>Security</span>
+
+                    <div class="proj-flagship-right">
+                        <div class="proj-why-box">
+                            <div class="proj-why-title"><i class="fas fa-brain"></i> Why These Tech Choices</div>
+                            <ul>
+                                <li><strong>NestJS</strong> — Modular DI architecture, perfect for plug-and-play microservices</li>
+                                <li><strong>WebSockets</strong> — Sub-100ms real-time chat &amp; live collaboration</li>
+                                <li><strong>Redis + BullMQ</strong> — Async job queues, pub/sub, session caching at scale</li>
+                                <li><strong>Microservices</strong> — Each module ships independently, zero downtime deploys</li>
+                                <li><strong>GenAI</strong> — Conversational assistant + smart automation across modules</li>
+                            </ul>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-warehouse"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Inventory Management System</h3>
-                        <p><strong>Company:</strong> Redcliffe Labs</p>
-                        <p><strong>Challenge:</strong> Manual inventory tracking was inefficient and prone to errors, affecting laboratory operations and resource management.</p>
-                        <p><strong>Solution:</strong> Designed and developed comprehensive Inventory Management System within the CRM, implementing real-time tracking and automated alerts.</p>
-                        <p><strong>Impact:</strong> Reduced manual work by 70% and improved inventory accuracy, streamlining laboratory operations significantly.</p>
-                        <div class="project-tech">
-                            <span>React.js</span>
-                            <span>CRM Integration</span>
-                            <span>Real-time Updates</span>
-                            <span>MongoDB</span>
+
+                        <div class="sa-modules-title"><i class="fas fa-th"></i> Core Modules</div>
+                        <div class="proj-modules">
+                            <div class="proj-module"><i class="fas fa-ticket-alt"></i> Ticketing System</div>
+                            <div class="proj-module"><i class="fas fa-shield-alt"></i> Insurance Mgmt</div>
+                            <div class="proj-module"><i class="fas fa-bell"></i> Notification Engine</div>
+                            <div class="proj-module"><i class="fas fa-chart-bar"></i> Analytics Dashboard</div>
+                            <div class="proj-module"><i class="fas fa-comments"></i> Chat &amp; Collab</div>
+                            <div class="proj-module"><i class="fas fa-robot"></i> AI Assistant</div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-ticket-alt"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Automated Ticketing System</h3>
-                        <p><strong>Company:</strong> Redcliffe Labs</p>
-                        <p><strong>Challenge:</strong> Manual ticket management was causing delays in customer support and reducing overall customer satisfaction scores.</p>
-                        <p><strong>Solution:</strong> Built automated ticketing system with intelligent routing, real-time updates, and priority-based assignment within the CRM platform.</p>
-                        <p><strong>Impact:</strong> Reduced response time by 60% and improved customer satisfaction scores by 35% through efficient ticket handling.</p>
-                        <div class="project-tech">
-                            <span>React.js</span>
-                            <span>WebSocket</span>
-                            <span>CRM</span>
-                            <span>Automation</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-map-marked-alt"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>MapMyIndia API Integration</h3>
-                        <p><strong>Company:</strong> Redcliffe Labs</p>
-                        <p><strong>Challenge:</strong> Need for advanced zone mapping and address tracking solutions to improve customer service and logistics management.</p>
-                        <p><strong>Solution:</strong> Integrated MapMyIndia API to create advanced zone and address mapping solutions, implementing geolocation services and route optimization.</p>
-                        <p><strong>Impact:</strong> Improved customer tracking by 35% and enhanced logistics efficiency through accurate location-based services.</p>
-                        <div class="project-tech">
-                            <span>MapMyIndia API</span>
-                            <span>Geolocation</span>
-                            <span>React.js</span>
-                            <span>Maps Integration</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-bell"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Firebase Real-time Notifications</h3>
-                        <p><strong>Company:</strong> Redcliffe Labs</p>
-                        <p><strong>Challenge:</strong> Users needed instant notifications for critical updates and system alerts to maintain operational efficiency.</p>
-                        <p><strong>Solution:</strong> Implemented Firebase for real-time notifications system, enabling instant push notifications and in-app messaging capabilities.</p>
-                        <p><strong>Impact:</strong> Increased customer engagement by 25% and improved communication efficiency through instant notification delivery.</p>
-                        <div class="project-tech">
-                            <span>Firebase</span>
-                            <span>Real-time</span>
-                            <span>Push Notifications</span>
-                            <span>React.js</span>
+
+                        <div class="sa-impact-row">
+                            <div class="sa-impact"><i class="fas fa-arrow-up"></i><span>+30%</span><small>Response efficiency</small></div>
+                            <div class="sa-impact"><i class="fas fa-arrow-down"></i><span>-60%</span><small>Ticket response time</small></div>
+                            <div class="sa-impact"><i class="fas fa-check"></i><span>99.9%</span><small>System uptime</small></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-                        <div class="project-tech">
-                            <span>Amazon Q CLI</span>
-                            <span>Gen AI</span>
-                            <span>AWS</span>
-                            <span>Python</span>
-                        </div>
+
+            <!-- Grid of 4 projects -->
+            <div class="proj-grid">
+
+                <div class="proj-card">
+                    <div class="proj-card-top">
+                        <div class="proj-icon-wrap"><i class="fas fa-ticket-alt"></i></div>
+                        <span class="proj-number">02</span>
+                    </div>
+                    <h3>Enterprise Ticketing System</h3>
+                    <p class="proj-tagline">Workflow Automation &amp; Multi-Level Approval Platform</p>
+                    <div class="proj-highlights">
+                        <div class="proj-hl"><i class="fas fa-check-circle"></i> SR / Incident / CR full lifecycle (raise → dev → UAT → prod)</div>
+                        <div class="proj-hl"><i class="fas fa-check-circle"></i> Configurable multi-level approval workflows (Agent → RH)</div>
+                        <div class="proj-hl"><i class="fas fa-check-circle"></i> SLA / TAT tracking with auto-escalation</div>
+                        <div class="proj-hl"><i class="fas fa-check-circle"></i> Sprint planning, audit logs &amp; activity timeline</div>
+                    </div>
+                    <div class="proj-scale">
+                        <span><i class="fas fa-bolt"></i> Event-driven architecture</span>
+                        <span><i class="fas fa-sitemap"></i> Enterprise workflow design</span>
+                    </div>
+                    <div class="proj-tags-row">
+                        <span>React.js</span><span>NestJS</span><span>WebSocket</span><span>MongoDB</span><span>Redis</span>
                     </div>
                 </div>
-                
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-cloud"></i>
+
+                <div class="proj-card">
+                    <div class="proj-card-top">
+                        <div class="proj-icon-wrap"><i class="fas fa-shield-alt"></i></div>
+                        <span class="proj-number">03</span>
                     </div>
-                    <div class="project-content">
-                        <h3>Cloud Migration & DevOps</h3>
-                        <p><strong>Problem:</strong> Legacy infrastructure causing scalability issues and high maintenance costs.</p>
-                        <p><strong>Solution:</strong> Led complete cloud migration to AWS with containerized applications and automated CI/CD.</p>
-                        <p><strong>Impact:</strong> Reduced infrastructure costs by 40% and improved deployment frequency by 300%.</p>
-                        <div class="project-tech">
-                            <span>AWS</span>
-                            <span>Docker</span>
-                            <span>CI/CD</span>
-                            <span>Kubernetes</span>
-                        </div>
+                    <h3>Insurance Management Platform</h3>
+                    <p class="proj-tagline">End-to-End Policy Lifecycle &amp; Operations System</p>
+                    <div class="proj-highlights">
+                        <div class="proj-hl"><i class="fas fa-check-circle"></i> Underwriting, Renewal, Finance (NML/NFL) modules</div>
+                        <div class="proj-hl"><i class="fas fa-check-circle"></i> PIVC / E-NACH / COPS / QC workflow orchestration</div>
+                        <div class="proj-hl"><i class="fas fa-check-circle"></i> Medical case tracking &amp; discrepancy management</div>
+                        <div class="proj-hl"><i class="fas fa-check-circle"></i> Data-driven decision support dashboards</div>
+                    </div>
+                    <div class="proj-scale">
+                        <span><i class="fas fa-building"></i> Domain expertise</span>
+                        <span><i class="fas fa-cogs"></i> Complex business rules</span>
+                    </div>
+                    <div class="proj-tags-row">
+                        <span>React.js</span><span>Redux</span><span>Node.js</span><span>PostgreSQL</span><span>AWS</span>
                     </div>
                 </div>
+
+                <div class="proj-card">
+                    <div class="proj-card-top">
+                        <div class="proj-icon-wrap"><i class="fas fa-globe"></i></div>
+                        <span class="proj-number">04</span>
+                        <span class="proj-live-badge"><i class="fas fa-circle"></i> Live</span>
+                    </div>
+                    <h3>D2C Cross-Sell Platform</h3>
+                    <p class="proj-tagline">Customer-Facing Insurance Sales Platform</p>
+                    <div class="proj-highlights">
+                        <div class="proj-hl"><i class="fas fa-check-circle"></i> Deployed &amp; running in production environment</div>
+                        <div class="proj-hl"><i class="fas fa-check-circle"></i> Optimized cross-sell journeys for higher conversions</div>
+                        <div class="proj-hl"><i class="fas fa-check-circle"></i> Customer funnel tracking &amp; behavior analytics</div>
+                        <div class="proj-hl"><i class="fas fa-check-circle"></i> Scalable frontend + backend architecture</div>
+                    </div>
+                    <div class="proj-scale">
+                        <span><i class="fas fa-rocket"></i> Production deployed</span>
+                        <span><i class="fas fa-chart-line"></i> Real-world impact</span>
+                    </div>
+                    <div class="proj-tags-row">
+                        <span>Next.js</span><span>NestJS</span><span>Docker</span><span>GenAI</span><span>AWS</span>
+                    </div>
+                </div>
+
+                <div class="proj-card">
+                    <div class="proj-card-top">
+                        <div class="proj-icon-wrap"><i class="fas fa-bell"></i></div>
+                        <span class="proj-number">05</span>
+                        <span class="proj-new-badge">New</span>
+                    </div>
+                    <h3>Notification System</h3>
+                    <p class="proj-tagline">Scalable Event-Driven Communication Engine</p>
+                    <div class="proj-highlights">
+                        <div class="proj-hl"><i class="fas fa-check-circle"></i> Push via Firebase FCM + Email + SMS fallback</div>
+                        <div class="proj-hl"><i class="fas fa-check-circle"></i> Queue-based processing with Redis / BullMQ</div>
+                        <div class="proj-hl"><i class="fas fa-check-circle"></i> Retry &amp; failure handling mechanisms</div>
+                        <div class="proj-hl"><i class="fas fa-check-circle"></i> Admin dashboard for campaign triggering</div>
+                    </div>
+                    <div class="proj-scale">
+                        <span><i class="fas fa-layer-group"></i> Async architecture</span>
+                        <span><i class="fas fa-infinity"></i> Scalable backend</span>
+                    </div>
+                    <div class="proj-tags-row">
+                        <span>NestJS</span><span>Redis</span><span>BullMQ</span><span>Firebase</span><span>Node.js</span>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -680,12 +652,33 @@
         <div class="container">
             <h2 class="section-title">Awards & Achievements</h2>
             <div class="awards-grid">
+
+                <div class="award-card award-featured">
+                    <div class="award-year-badge">2025–2026</div>
+                    <div class="award-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Employee of the Year</h3>
+                    <p>Pramerica Life Insurance · 2025–2026</p>
+                    <span>Recognized for outstanding leadership, delivering multiple high-impact projects, and driving innovation across the organization</span>
+                </div>
+
+                <div class="award-card award-featured">
+                    <div class="award-year-badge">2025–2026</div>
+                    <div class="award-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>Pat on the Back</h3>
+                    <p>Pramerica Life Insurance · 2025–2026</p>
+                    <span>Multiple recognitions for exceptional contributions across Super App Platform, D2C Cross-Sell, Ticketing System, and Notification Engine</span>
+                </div>
+
                 <div class="award-card">
                     <div class="award-icon">
                         <i class="fas fa-trophy"></i>
                     </div>
                     <h3>Employee of the Year</h3>
-                    <p>Pramerica Life Insurance - 2023</p>
+                    <p>Pramerica Life Insurance · 2023</p>
                     <span>Recognized for exceptional leadership and delivering high-impact projects</span>
                 </div>
                 
@@ -694,7 +687,7 @@
                         <i class="fas fa-medal"></i>
                     </div>
                     <h3>Employee of the Month</h3>
-                    <p>Pramerica Life Insurance - 2022, 2023</p>
+                    <p>Pramerica Life Insurance · 2022, 2023</p>
                     <span>Multiple recognitions for outstanding performance and team collaboration</span>
                 </div>
                 
@@ -703,7 +696,7 @@
                         <i class="fas fa-users"></i>
                     </div>
                     <h3>Team Leadership Excellence</h3>
-                    <p>Internal Recognition - 2023</p>
+                    <p>Internal Recognition · 2023</p>
                     <span>Acknowledged for mentoring junior developers and building high-performing teams</span>
                 </div>
                 
@@ -712,9 +705,10 @@
                         <i class="fas fa-lightbulb"></i>
                     </div>
                     <h3>Innovation Award</h3>
-                    <p>Tech Innovation - 2022</p>
+                    <p>Tech Innovation · 2022</p>
                     <span>For implementing AI-powered solutions that transformed business processes</span>
                 </div>
+
             </div>
         </div>
     </section>
@@ -860,75 +854,38 @@
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title">Let's Work Together</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Get In Touch</h3>
-                    <p>I'm always interested in new opportunities and exciting projects. Whether you're looking for a senior developer, team lead, or technical consultant, let's discuss how we can work together.</p>
-                    
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div>
-                                <h4>Email</h4>
-                                <p>rajabhishek547@gmail.com</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <div>
-                                <h4>Phone</h4>
-                                <p>+91 7676118652</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <i class="fab fa-linkedin"></i>
-                            <div>
-                                <h4>LinkedIn</h4>
-                                <p>linkedin.com/in/abhishekraj</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <i class="fab fa-github"></i>
-                            <div>
-                                <h4>GitHub</h4>
-                                <p>github.com/abhishekraj</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <h4>Location</h4>
-                                <p>India - Available for Remote/Hybrid</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your Name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Your Email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="text" id="subject" name="subject" placeholder="Subject" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
+            <h2 class="section-title">Let's Connect</h2>
+            <p class="contact-subtitle">Open to new opportunities, collaborations & exciting projects</p>
+            <div class="contact-cards">
+                <a href="mailto:rajabhishek547@gmail.com" class="contact-card">
+                    <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="contact-card-label">Email</div>
+                    <div class="contact-card-value">rajabhishek547@gmail.com</div>
+                    <div class="contact-card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </a>
+                <a href="tel:+917676118652" class="contact-card">
+                    <div class="contact-card-icon"><i class="fas fa-phone"></i></div>
+                    <div class="contact-card-label">Phone</div>
+                    <div class="contact-card-value">+91 7676118652</div>
+                    <div class="contact-card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </a>
+                <a href="https://linkedin.com/in/abhishekraj" target="_blank" class="contact-card">
+                    <div class="contact-card-icon"><i class="fab fa-linkedin"></i></div>
+                    <div class="contact-card-label">LinkedIn</div>
+                    <div class="contact-card-value">linkedin.com/in/abhishekraj</div>
+                    <div class="contact-card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </a>
+                <a href="https://github.com/abhishekraj" target="_blank" class="contact-card">
+                    <div class="contact-card-icon"><i class="fab fa-github"></i></div>
+                    <div class="contact-card-label">GitHub</div>
+                    <div class="contact-card-value">github.com/abhishekraj</div>
+                    <div class="contact-card-arrow"><i class="fas fa-arrow-right"></i></div>
+                </a>
+                <div class="contact-card no-link">
+                    <div class="contact-card-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="contact-card-label">Location</div>
+                    <div class="contact-card-value">India · Remote / Hybrid</div>
+                    <div class="contact-card-arrow"><i class="fas fa-globe"></i></div>
                 </div>
             </div>
         </div>
@@ -957,6 +914,7 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="three-d.js"></script>
 </body>
 </html>
 <!-- Updated Sat Aug 23 12:41:18 IST 2025 -->
