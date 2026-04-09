@@ -10,10 +10,14 @@ html {
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #ffffff;
+    color: #e2e8f0;
+    background-color: #020817;
+    background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(124,58,237,0.15), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(37,99,235,0.08), transparent);
+    overflow-x: hidden;
 }
 
 /* Section Scroll Offset */
@@ -3618,3 +3622,377 @@ section { scroll-margin-top: 80px !important; }
   }
   .nav-menu { padding-top: 70px; }
 }
+
+/* ============================================================
+   AI / ROBOTIC FEEL UPGRADES
+   ============================================================ */
+
+/* ── HUD corner brackets on hero ── */
+.hud-corner {
+  position: absolute;
+  width: 28px; height: 28px;
+  border-color: rgba(96,165,250,0.5);
+  border-style: solid;
+  z-index: 4;
+  pointer-events: none;
+  animation: hudCornerPulse 3s ease-in-out infinite;
+}
+.hud-corner.tl { top: 18px; left: 18px;  border-width: 2px 0 0 2px; }
+.hud-corner.tr { top: 18px; right: 18px; border-width: 2px 2px 0 0; }
+.hud-corner.bl { bottom: 18px; left: 18px;  border-width: 0 0 2px 2px; }
+.hud-corner.br { bottom: 18px; right: 18px; border-width: 0 2px 2px 0; }
+@keyframes hudCornerPulse {
+  0%,100% { opacity: 0.5; } 50% { opacity: 1; }
+}
+
+/* ── HUD data readouts ── */
+.hud-readout {
+  position: absolute;
+  bottom: 28px;
+  z-index: 4;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hud-left  { left: 24px; }
+.hud-right { right: 24px; text-align: right; }
+.hud-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.65rem;
+}
+.hud-right .hud-row { flex-direction: row-reverse; }
+.hud-label {
+  color: rgba(124,58,237,0.7);
+  letter-spacing: 1.5px;
+  font-weight: 700;
+}
+.hud-val {
+  color: rgba(96,165,250,0.8);
+  letter-spacing: 1px;
+}
+
+/* ── Robotic section dividers ── */
+.section-title::before {
+  content: '// ';
+  color: rgba(124,58,237,0.4);
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.6em;
+  vertical-align: middle;
+  -webkit-text-fill-color: rgba(124,58,237,0.4);
+}
+
+/* ── Scanline overlay on whole page ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* ── Neon glow on buttons ── */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+  transform: translateX(-100%);
+  animation: btnShimmer 3s ease-in-out infinite;
+}
+@keyframes btnShimmer {
+  0%,100% { transform: translateX(-100%); }
+  50%      { transform: translateX(100%); }
+}
+
+/* ── Robotic nav logo ── */
+.nav-logo h2::after {
+  content: '_';
+  animation: blink 0.8s step-end infinite;
+  font-weight: 300;
+  opacity: 0.6;
+}
+
+/* ── Hexagon pattern on about section ── */
+.about::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34z' fill='none' stroke='rgba(124,58,237,0.04)' stroke-width='1'/%3E%3Cpath d='M28 100L0 84V50l28-16 28 16v34z' fill='none' stroke='rgba(124,58,237,0.04)' stroke-width='1'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+.about .container { position: relative; z-index: 1; }
+
+/* ── Circuit line on timeline ── */
+.exp-timeline::after {
+  content: '';
+  position: absolute;
+  left: 27px; top: 0; bottom: 0;
+  width: 2px;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(124,58,237,0.6) 0px,
+    rgba(124,58,237,0.6) 8px,
+    transparent 8px,
+    transparent 14px
+  );
+  animation: circuitFlow 1.5s linear infinite;
+}
+@keyframes circuitFlow {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 28px; }
+}
+
+/* ── Robotic profile image overlay ── */
+.profile-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(124,58,237,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* ── Mobile: hide HUD readouts ── */
+@media (max-width: 768px) {
+  .hud-readout { display: none; }
+  .hud-corner  { width: 16px; height: 16px; }
+}
+
+/* ============================================================
+   DEEP AI / CYBERPUNK VISUAL OVERHAUL
+   ============================================================ */
+
+/* ── Animated gradient mesh background ── */
+body {
+  background-attachment: fixed;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(124,58,237,0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(37,99,235,0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, rgba(6,182,212,0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+  animation: meshShift 12s ease-in-out infinite alternate;
+}
+@keyframes meshShift {
+  0%   { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 1;   transform: scale(1.05); }
+}
+
+/* ── Navbar — full cyberpunk ── */
+.navbar {
+  background: rgba(2,8,23,0.85) !important;
+  border-bottom: 1px solid transparent !important;
+  border-image: linear-gradient(90deg, transparent, rgba(124,58,237,0.6), rgba(37,99,235,0.6), transparent) 1 !important;
+}
+.navbar.scrolled {
+  background: rgba(2,8,23,0.97) !important;
+  box-shadow: 0 0 40px rgba(124,58,237,0.2), 0 1px 0 rgba(124,58,237,0.3) !important;
+}
+
+/* ── Hero — deep space ── */
+.hero {
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(124,58,237,0.2) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(37,99,235,0.15) 0%, transparent 60%),
+    #020817 !important;
+}
+
+/* ── Section backgrounds — alternating depth ── */
+.about, .education {
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(37,99,235,0.06) 0%, transparent 60%),
+    #030c1a !important;
+}
+.skills, .projects, .testimonials {
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(124,58,237,0.06) 0%, transparent 60%),
+    #020817 !important;
+}
+.experience, .awards, .contact {
+  background:
+    radial-gradient(ellipse at 60% 30%, rgba(6,182,212,0.05) 0%, transparent 60%),
+    #030c1a !important;
+}
+
+/* ── Section title — neon laser ── */
+.section-title {
+  font-size: 2.4rem !important;
+  letter-spacing: -0.5px;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -14px; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #7c3aed, #2563eb, #06b6d4, transparent);
+  animation: laserScan 2.5s ease-in-out infinite;
+}
+@keyframes laserScan {
+  0%,100% { opacity: 0.5; transform: scaleX(0.7); }
+  50%      { opacity: 1;   transform: scaleX(1); }
+}
+
+/* ── Cards — neon glass ── */
+.project-card, .award-card, .education-card, .testimonial-card, .skill-category, .stat-item, .exp-card, .contact-card {
+  background: rgba(255,255,255,0.02) !important;
+  border: 1px solid rgba(124,58,237,0.18) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  position: relative;
+}
+
+/* neon top-edge glow on hover */
+.project-card:hover, .award-card:hover, .education-card:hover,
+.testimonial-card:hover, .skill-category:hover, .exp-item:hover .exp-card {
+  border-color: rgba(124,58,237,0.55) !important;
+  box-shadow:
+    0 0 0 1px rgba(124,58,237,0.15),
+    0 8px 40px rgba(124,58,237,0.2),
+    inset 0 1px 0 rgba(124,58,237,0.2) !important;
+}
+
+/* ── Skill items — chip glow ── */
+.skill-item {
+  background: rgba(124,58,237,0.06) !important;
+  border: 1px solid rgba(124,58,237,0.18) !important;
+  transition: all 0.2s ease !important;
+}
+.skill-item:hover {
+  background: rgba(124,58,237,0.18) !important;
+  border-color: #7c3aed !important;
+  box-shadow: 0 0 12px rgba(124,58,237,0.4), inset 0 0 8px rgba(124,58,237,0.1) !important;
+  transform: translateY(-2px) scale(1.04) !important;
+}
+
+/* ── Animated neon border on flagship ── */
+.proj-flagship {
+  border: 1px solid transparent !important;
+  background-clip: padding-box !important;
+  position: relative;
+}
+.proj-flagship::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(251,191,36,0.5), rgba(124,58,237,0.4), rgba(37,99,235,0.4), rgba(251,191,36,0.5));
+  background-size: 300% 300%;
+  animation: borderRotate 4s linear infinite;
+  z-index: -1;
+}
+@keyframes borderRotate {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+/* ── Glowing social links ── */
+.social-link {
+  border: 1px solid rgba(124,58,237,0.3) !important;
+  background: rgba(124,58,237,0.08) !important;
+  transition: all 0.3s ease !important;
+}
+.social-link:hover {
+  background: rgba(124,58,237,0.3) !important;
+  border-color: #7c3aed !important;
+  box-shadow: 0 0 20px rgba(124,58,237,0.5) !important;
+  transform: translateY(-4px) scale(1.1) !important;
+  color: white !important;
+}
+
+/* ── Neon scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #020817; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #7c3aed, #2563eb);
+  border-radius: 4px;
+  box-shadow: 0 0 6px rgba(124,58,237,0.8);
+}
+
+/* ── Text selection ── */
+::selection {
+  background: rgba(124,58,237,0.4);
+  color: #fff;
+}
+
+/* ── Floating particles via CSS (supplement Three.js) ── */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(124,58,237,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 10%, rgba(96,165,250,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 70%, rgba(6,182,212,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 10% 80%, rgba(244,114,182,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 60%, rgba(124,58,237,0.4) 0%, transparent 100%);
+  animation: starField 8s ease-in-out infinite alternate;
+  z-index: 1;
+  pointer-events: none;
+}
+@keyframes starField {
+  0%   { opacity: 0.4; transform: scale(1); }
+  100% { opacity: 1;   transform: scale(1.02); }
+}
+
+/* ── Award featured cards — animated border ── */
+.award-featured {
+  position: relative;
+  overflow: hidden;
+}
+.award-featured::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(251,191,36,0.6), rgba(124,58,237,0.4), rgba(251,191,36,0.6));
+  background-size: 200% 200%;
+  animation: borderRotate 3s linear infinite;
+  z-index: -1;
+}
+
+/* ── Contact cards — neon hover ── */
+.contact-card:hover {
+  background: rgba(124,58,237,0.08) !important;
+  box-shadow: 0 0 40px rgba(124,58,237,0.25), inset 0 0 20px rgba(124,58,237,0.05) !important;
+}
+
+/* ── Exp dot — robotic ── */
+.exp-dot {
+  border: 1px solid rgba(124,58,237,0.6) !important;
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.1), 0 0 20px rgba(124,58,237,0.5) !important;
+}
+
+/* ── Footer ── */
+.footer {
+  background: #010610 !important;
+  border-top: 1px solid rgba(124,58,237,0.15) !important;
+}
+
+/* ── Headings ── */
+h3, h4 { color: #e2e8f0; }
+p { color: #94a3b8; }

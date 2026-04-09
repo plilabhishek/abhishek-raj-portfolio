@@ -92,6 +92,22 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <canvas id="hero-canvas"></canvas>
+        <!-- HUD corner brackets -->
+        <div class="hud-corner tl"></div>
+        <div class="hud-corner tr"></div>
+        <div class="hud-corner bl"></div>
+        <div class="hud-corner br"></div>
+        <!-- HUD data readouts -->
+        <div class="hud-readout hud-left">
+            <div class="hud-row"><span class="hud-label">SYS</span><span class="hud-val" id="hud-time">--:--:--</span></div>
+            <div class="hud-row"><span class="hud-label">CPU</span><span class="hud-val" id="hud-cpu">---%</span></div>
+            <div class="hud-row"><span class="hud-label">NET</span><span class="hud-val">ONLINE</span></div>
+        </div>
+        <div class="hud-readout hud-right">
+            <div class="hud-row"><span class="hud-label">EXP</span><span class="hud-val">5.5 YRS</span></div>
+            <div class="hud-row"><span class="hud-label">PRJ</span><span class="hud-val">50+</span></div>
+            <div class="hud-row"><span class="hud-label">AI</span><span class="hud-val">ACTIVE</span></div>
+        </div>
         <div class="hero-container">
             <div class="hero-content">
                 <div class="hero-tag-line"><span class="hero-tag-dot"></span> Available for opportunities</div>
@@ -122,7 +138,6 @@
             </div>
             <div class="hero-image">
                 <div class="profile-card">
-                    <!-- Orbit rings -->
                     <div class="orbit-ring orbit-1">
                         <div class="orbit-icon" style="--angle:0deg"><i class="fab fa-react"></i></div>
                         <div class="orbit-icon" style="--angle:90deg"><i class="fab fa-node-js"></i></div>

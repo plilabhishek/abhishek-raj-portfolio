@@ -536,3 +536,71 @@
   const grid = document.querySelector('.skill-bars-grid');
   if (grid) observer.observe(grid);
 })();
+
+
+// ── HUD live clock + CPU readout ───────────────────────────
+(function initHUDReadout() {
+  const timeEl = document.getElementById('hud-time');
+  const cpuEl  = document.getElementById('hud-cpu');
+  if (!timeEl) return;
+
+  setInterval(() => {
+    const now = new Date();
+    timeEl.textContent = now.toTimeString().slice(0,8);
+    // fake CPU fluctuation between 12–38%
+    cpuEl.textContent = (12 + Math.floor(Math.random() * 26)) + '%';
+  }, 1000);
+})();
+
+
+// ── Floating data packets (extra Three.js layer) ────────────
+(function initDataPackets() {
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas || !window.THREE) return;
+
+  // inject extra animated rings into the scene via CSS canvas overlay
+  const overlay = document.createElement('canvas');
+  overlay.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2;opacity:0.6;';
+  document.querySelector('.hero').appendChild(overlay);
+
+  const ctx = overlay.getContext('2d');
+  function resize() { overlay.width = overlay.clientWidth; overlay.height = overlay.clientHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const rings = Array.from({length: 5}, (_, i) => ({
+    x: Math.random() * overlay.width,
+    y: Math.random() * overlay.height,
+    r: 20 + Math.random() * 60,
+    speed: 0.2 + Math.random() * 0.4,
+    opacity: 0,
+    growing: true,
+    hue: [270, 220, 190, 320, 250][i],
+    delay: i * 1200,
+    lastTick: Date.now() + i * 1200,
+  }));
+
+  function drawRings() {
+    ctx.clearRect(0, 0, overlay.width, overlay.height);
+    const now = Date.now();
+    rings.forEach(ring => {
+      if (now < ring.lastTick) return;
+      if (ring.growing) { ring.r += ring.speed; ring.opacity = Math.min(ring.opacity + 0.015, 0.5); }
+      if (ring.r > 120) { ring.growing = false; ring.opacity -= 0.02; }
+      if (ring.opacity <= 0) {
+        ring.r = 10 + Math.random() * 30;
+        ring.x = Math.random() * overlay.width;
+        ring.y = Math.random() * overlay.height;
+        ring.growing = true; ring.opacity = 0;
+        ring.lastTick = now + Math.random() * 2000;
+      }
+      ctx.beginPath();
+      ctx.arc(ring.x, ring.y, ring.r, 0, Math.PI * 2);
+      ctx.strokeStyle = `hsla(${ring.hue},80%,65%,${ring.opacity})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    });
+    requestAnimationFrame(drawRings);
+  }
+  drawRings();
+})();
