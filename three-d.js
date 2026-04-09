@@ -519,8 +519,6 @@
       body.appendChild(div);
       li++; setTimeout(nextLine, 120);
     }
-    // keep scroll at bottom
-    body.scrollTop = body.scrollHeight;
   }
   setTimeout(nextLine, 800);
 })();
